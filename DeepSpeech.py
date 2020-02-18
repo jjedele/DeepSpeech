@@ -35,6 +35,7 @@ from util.feeding import create_dataset, samples_to_mfccs, audiofile_to_features
 from util.flags import create_flags, FLAGS
 from util.helpers import check_ctcdecoder_version
 from util.logging import log_info, log_error, log_debug, log_progress, create_progressbar
+from util.synthetic_data import create_synthetic_dataset
 
 check_ctcdecoder_version()
 
@@ -419,11 +420,14 @@ def train():
         do_cache_dataset = False
 
     # Create training and validation datasets
-    train_set = create_dataset(FLAGS.train_files.split(','),
-                               batch_size=FLAGS.train_batch_size,
-                               enable_cache=FLAGS.feature_cache and do_cache_dataset,
-                               cache_path=FLAGS.feature_cache,
-                               train_phase=True)
+    if FLAGS.train_files.startswith("SYNTHETIC"):
+        train_set = create_synthetic_dataset(batch_size=5, length=20)
+    else:
+        train_set = create_dataset(FLAGS.train_files.split(','),
+                                   batch_size=FLAGS.train_batch_size,
+                                   enable_cache=FLAGS.feature_cache and do_cache_dataset,
+                                   cache_path=FLAGS.feature_cache,
+                                   train_phase=True)
 
     iterator = tfv1.data.Iterator.from_structure(tfv1.data.get_output_types(train_set),
                                                  tfv1.data.get_output_shapes(train_set),
