@@ -17,8 +17,8 @@ def create_flags():
 
     f.DEFINE_string('feature_cache', '', 'cache MFCC features to disk to speed up future training runs ont he same data. This flag specifies the path where cached features extracted from --train_files will be saved. If empty, or if online augmentation flags are enabled, caching will be disabled.')
 
-    f.DEFINE_integer('feature_win_len', 32, 'feature extraction audio window length in milliseconds')
-    f.DEFINE_integer('feature_win_step', 20, 'feature extraction window step length in milliseconds')
+    f.DEFINE_integer('feature_win_len', 20, 'feature extraction audio window length in milliseconds')
+    f.DEFINE_integer('feature_win_step', 10, 'feature extraction window step length in milliseconds')
     f.DEFINE_integer('audio_sample_rate', 16000, 'sample rate value expected by model')
 
     # Data Augmentation

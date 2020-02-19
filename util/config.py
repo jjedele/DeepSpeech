@@ -76,7 +76,9 @@ def initialize_globals():
     # doc/Geometry.md
 
     # Number of MFCC features
-    c.n_input = 26 # TODO: Determine this programmatically from the sample rate
+    # c.n_input = 26 # TODO: Determine this programmatically from the sample rate
+    # use the raw spectrogram configuration reported in the original paper
+    c.n_input = 80
 
     # The number of frames in the context
     c.n_context = 9 # TODO: Determine the optimal value using a validation data set
