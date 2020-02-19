@@ -421,7 +421,8 @@ def train():
 
     # Create training and validation datasets
     if FLAGS.train_files.startswith("SYNTHETIC"):
-        train_set = create_synthetic_dataset(batch_size=5, length=20)
+        train_set = create_synthetic_dataset(batch_size=FLAGS.train_batch_size,
+                                             length=30)
     else:
         train_set = create_dataset(FLAGS.train_files.split(','),
                                    batch_size=FLAGS.train_batch_size,
